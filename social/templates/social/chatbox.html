@@ -1,0 +1,102 @@
+{% extends 'base.html' %}{% load static %} {% block title %}chat Page{% endblock %} {% block body %}
+<div class="container mt-5">
+    <h1 class="display-4">ChitChat </h1>
+    <div id="text-area" class="row" style="height: 70vh;border-style: solid; border-width: 1px;border-radius: 15px;display: block; background: rgb(235, 235, 235);white-space: nowrap; overflow-y: scroll;">
+
+    </div>
+    <!-- <textarea class="form-control" name="chat-text" id="chat-text" style="width: 100%;height:60vh" disabled></textarea> -->
+    <p style="size: 5px;color: gray; font-family: 'Courier New', Courier, monospace;" id="welcome-text"></p>
+    <br>
+    <div class="row">
+        <div class="col-11">
+            <input class="form-control" id="input-text" type="text" style="width: 100%;" placeholder="Type your message here">
+        </div>
+        <div class="col-1">
+            <input class="btn btn-success" id="submit" type="button" value="send">
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+{{ room_name|json_script:"room-name" }} {{ request.user.id|json_script:"user-id" }}{{ request.user.name|json_script:"user-name" }}{{message_list|json_script:"messages"}} {{thread|json_script:"thread-ID"}}
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const user = JSON.parse(document.getElementById('user-name').textContent);
+    const threadID = JSON.parse(document.getElementById('thread-ID').textContent);
+    const userID = JSON.parse(document.getElementById('user-id').textContent);
+    const messageHistory = JSON.parse(JSON.parse(document.getElementById('messages').textContent));
+    const chatArea = document.getElementById('text-area')
+    for (i in messageHistory) {
+        var node = document.createElement("DIV");
+        node.style.background = 'white'
+        node.classList.add('col-md-6', 'shadow-sm', 'p-3', 'mt-3', 'mr-3');
+        if (messageHistory[i].sender_user_id === userID)
+            node.classList.add('offset-6');
+        var textnode = document.createTextNode(messageHistory[i].body);
+        node.appendChild(textnode)
+        chatArea.appendChild(node)
+    }
+    const chatSocket = new WebSocket(
+        'ws://' +
+        window.location.host +
+        '/ws/chat/' +
+        roomName +
+        '/'
+    );
+
+    document.querySelector('#submit').onclick = function(e) {
+        const message = document.querySelector('#input-text').value;
+        chatSocket.send(JSON.stringify({
+            'user': user,
+            'userID': userID,
+            'thread': threadID,
+            'message': message,
+        }));
+        document.querySelector('#input-text').value = '';
+    };
+
+
+    document.querySelector('#input-text').addEventListener(
+        "keyup",
+        function(e) {
+            if (e.keyCode === 13) {
+                event.preventDefault();
+                document.querySelector('#submit').click();
+            }
+        }
+    );
+
+
+    function scrollMe() {
+        var div = $("#text-area");
+        div.scrollTop(div.prop('scrollHeight'));
+    }
+
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log(data)
+        if (data.welcome)
+            document.querySelector('#welcome-text').innerHTML = data.welcome
+
+
+        if (data.message) {
+            messageSender = data.sender
+            var node = document.createElement("DIV");
+            node.style.background = 'white'
+            node.classList.add('col-md-6', 'shadow-sm', 'p-3', 'mt-3');
+            if (data.sender === userID)
+                node.classList.add('offset-6');
+            console.log(user)
+            var textnode = document.createTextNode(data.message);
+            node.appendChild(textnode)
+            chatArea.appendChild(node)
+            scrollMe();
+        }
+    }
+</script>
+
+
+{% endblock %}

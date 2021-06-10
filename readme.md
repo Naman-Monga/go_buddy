@@ -12,7 +12,7 @@
 2. Inbox ![Inbox](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/inbox.png)
 3. Realtime + Encrypted Chat ![Chat](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/chatBox.png)
 4. #### NEW! Watch Room 
-   (Share same link with friends and watch simultaneously)![Watch Room](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/watchroom.png)
+   (Share same link with friends and watch simultaneously)![Watch Room](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/goWatch.png)
 5. Profile Page 
 ![Profile](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/profile.png)
 7. User Search 

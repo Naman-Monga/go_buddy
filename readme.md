@@ -8,7 +8,7 @@
 4. **Realtime & Secure Chat**: Chat with your friends in an safe(Encrypted) way.
 
 #### Some Screen Shots of the APP
-1. Home Page Feed ![Home](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/chatBox.png)
+1. Home Page Feed ![Home](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/homefeed.png)
 2. Inbox ![Inbox](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/inbox.png)
 3. Realtime + Encrypted Chat ![Chat](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/chatBox.png)
 4. #### NEW! Watch Room 

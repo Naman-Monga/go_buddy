@@ -1,8 +1,19 @@
-{% extends 'landing/base.html' %}
-{% load crispy_forms_tags %}
-
-{% block content %}
+{% extends 'landing/base.html' %} {% load crispy_forms_tags %} {% block content %}
 <div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            New!
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">GoBuddy Watch!</h5>
+            <p class="card-text">Watch your favourite videos with your friends</p>
+            <a href="{% url 'createroom' %}" class="btn btn-danger">Create the Party!</a>
+        </div>
+        <div class="card-footer text-muted">
+            Lets Go!
+        </div>
+    </div>
+
     <div class="row justify-content-center mt-3">
         <div class="col-md-5 col-sm-12 border-bottom">
             <h5>Add a Post!</h5>
@@ -12,10 +23,9 @@
     <div class="row justify-content-center mt-3 mb-5">
         <div class="col-md-5 col-sm-12 border-bottom">
             <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form | crispy }}
+                {% csrf_token %} {{ form | crispy }}
                 <div class="d-grid gap-2">
-                    <button class="btn btn-success mt-3">Submit!</button>
+                    <button class="btn btn-success mt-3">Post</button>
                 </div>
             </form>
         </div>
@@ -34,13 +44,13 @@
             </div>
             <div class="position-relative">
                 {% if post.image.count > 0 %}
-                  <div class="row">
+                <div class="row">
                     {% for img in post.image.all %}
-                        <div class="col-md-4 col-xs-12">
-                            <img src="{{ img.image.url }}" class="post-image" />
-                        </div>
+                    <div class="col-md-4 col-xs-12">
+                        <img src="{{ img.image.url }}" class="post-image" />
+                    </div>
                     {% endfor %}
-                  </div>
+                </div>
                 {% endif %}
                 <p>{{ post.body }}</p>
                 <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
@@ -62,8 +72,8 @@
                         <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i>
                     </button>
                 </form>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endblock content %}
+    {% endblock content %}

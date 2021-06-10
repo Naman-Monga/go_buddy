@@ -15,7 +15,7 @@
    (Share same link with friends and watch simultaneously)![Watch Room](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/goWatch.png)
 5. Profile Page 
 ![Profile](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/profile.png)
-7. User Search 
+7. User Search \
 ![Search](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/search.png)
 
 

@@ -2,10 +2,12 @@
 ### A platform to help you connect with your buddies remotely in the pandemic.
 
 #### Some of the already developed features are:
-1. People: Follow your friends or anyone on the platform.
-2. Feed: Recent Posts from people you follow.
-3. Comments, Likes, replies.
-4. **Realtime & Secure Chat**: Chat with your friends in an safe(Encrypted) way.
+1. **Realtime & Secure Chat**: Chat with your friends in an safe(Encrypted) way.
+2. **Stream Videos with friends & family remotely!** 
+3. People: Follow your friends or anyone on the platform.
+4. Feed: Recent Posts from people you follow.
+5. Comments, Likes, replies, and some more little things.
+
 
 #### Some Screen Shots of the APP
 1. Home Page Feed ![Home](https://github.com/Naman-Monga/go_buddy/blob/master/screenshots/homefeed.png)
@@ -20,7 +22,6 @@
 
 
 #### Under-Construction:
-* watch videos with your friends remotely.
 * A fun section to tackle anxiety & stress in the pandemic.
 * and may be some more...
 

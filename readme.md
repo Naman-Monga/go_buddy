@@ -1,4 +1,5 @@
 # goBuddy
+https://img.shields.io/badge/lines%20of%20code-3.4K-brightgreen
 ### A platform to help you connect with your buddies remotely in the pandemic.
 
 #### Some of the already developed features are:

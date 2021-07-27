@@ -1,79 +1,102 @@
 {% extends 'landing/base.html' %} {% load crispy_forms_tags %} {% block content %}
 <div class="container">
-    <div class="card text-center">
-        <div class="card-header">
-            New!
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">GoBuddy Watch!</h5>
-            <p class="card-text">Watch your favourite videos with your friends</p>
-            <a href="{% url 'createroom' %}" class="btn btn-danger">Create the Party!</a>
-        </div>
-        <div class="card-footer text-muted">
-            Lets Go!
-        </div>
-    </div>
 
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-5 col-sm-12 border-bottom">
-            <h5>Add a Post!</h5>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mt-3 mb-5">
-        <div class="col-md-5 col-sm-12 border-bottom">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %} {{ form | crispy }}
-                <div class="d-grid gap-2">
-                    <button class="btn btn-success mt-3">Post</button>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h5">@findingelephants</div>
+                        <div class="h7 text-muted">Fullname : Naman Monga</div>
+                        <div class="h7">This website is so cool, wish I had come across it before, wasted my life so far :]
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="h6 text-muted">Followers</div>
+                            <div class="h5">523</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="h6 text-muted">Following</div>
+                            <div class="h5">38</div>
+                        </li>
+                    </ul>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    {% for post in post_list %}
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-5 col-sm-12 border-bottom position-relative">
-            <div>
-                <a href="{% url 'profile' post.author.profile.pk %}">
-                    <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.picture.url }}" />
-                </a>
-                <p class="post-text">
-                    <a class="text-primary post-link" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}
-                </p>
             </div>
-            <div class="position-relative">
-                {% if post.image.count > 0 %}
-                <div class="row">
-                    {% for img in post.image.all %}
-                    <div class="col-md-4 col-xs-12">
-                        <img src="{{ img.image.url }}" class="post-image" />
+
+
+            <div class="col-md-8 gedf-main justify-content-center">
+                <div class="row justify-content-center mt-3">
+                    <div class="border-bottom">
+                        <h5>Add a Post!</h5>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center mt-3 mb-5">
+                    <div class="col-sm-12 border-bottom">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %} {{ form | crispy }}
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-small mt-3" style="background-color: rgb(233, 113, 1);color: white;">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card text-center" style="background-image: url('https://media.istockphoto.com/vectors/spiral-flat-bg-orange-vector-id1207442874?k=6&m=1207442874&s=170667a&w=0&h=_HfoY2DnhNpEAFlozyH05JLS5Ur9Sh3LbczUpEPGGXg=');">
+                    <div class="card-body" style="color: white; background-color: rgba(0, 0, 0, 0.2);">
+                        <h5 class="card-title">GoBuddy Watch!</h5>
+                        <p class="card-text">Watch your favourite videos with your friends</p>
+                        <a href="{% url 'createroom' %}" class="btn btn-danger" style="background-color: rgb(233, 113, 1);">Create the Party!</a>
+                    </div>
+                </div>
+                <br> {% for post in post_list %}
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-5 col-sm-12 border-bottom position-relative">
+                        <div>
+                            <a href="{% url 'profile' post.author.profile.pk %}">
+                                <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.picture.url }}" />
+                            </a>
+                            <p class="post-text">
+                                <a class="text-primary post-link" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}
+                            </p>
+                        </div>
+                        <div class="position-relative">
+                            {% if post.image.count > 0 %}
+                            <div class="row">
+                                {% for img in post.image.all %}
+                                <div class="col-md-4 col-xs-12">
+                                    <img src="{{ img.image.url }}" class="post-image" />
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <p>{{ post.body }}</p>
+                            <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <form method="POST" action="{% url 'like' post.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="remove-default-btn" type="submit">
+                                    <i class="far fa-thumbs-up"> <span>{{ post.likes.all.count }}</span></i>
+                                </button>
+                            </form>
+
+                            <form method="POST" action="{% url 'dislike' post.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="remove-default-btn" type="submit">
+                                    <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
-                {% endif %}
-                <p>{{ post.body }}</p>
-                <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
-            </div>
-
-            <div class="d-flex flex-row">
-                <form method="POST" action="{% url 'like' post.pk %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button class="remove-default-btn" type="submit">
-                        <i class="far fa-thumbs-up"> <span>{{ post.likes.all.count }}</span></i>
-                    </button>
-                </form>
-
-                <form method="POST" action="{% url 'dislike' post.pk %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button class="remove-default-btn" type="submit">
-                        <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i>
-                    </button>
-                </form>
             </div>
         </div>
-        {% endfor %}
     </div>
+
     {% endblock content %}
